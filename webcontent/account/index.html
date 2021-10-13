@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <script>
+        function send(fname, lname, usrname, pssword) {
+            xhr = new XMLHttpRequest();
+            var url = "url";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.responseText;
+                    console.log(res);
+                }
+            }
+            var data = JSON.stringify({
+                fname,
+                lname,
+                usrname,
+                pssword
+            });
+            xhr.send(data);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="leftButtons">
+            <a href="/">
+                <img src="images/placeholder.png" id="home">
+            </a>
+            <a href="/about">
+                <img src="images/placeholder.png" id="about">
+            </a>
+            <a href="/support">
+                <img src="images/placeholder.png" id="support">
+            </a>
+            <a href="/contact">
+                <img src="images/placeholder.png" id="contact">
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <input id="fname">
+        <input id="lname">
+        <input id="usrname">
+        <input id="pssword">
+        <button onclick="send(
+            document.getElementById('fname').value,
+            document.getElementById('lname').value,
+            document.getElementById('usrname').value,
+            document.getElementById('pssword').value,
+        )">
+        Submit
+    </button>
+    </div>
+</body>
+
+</html>
