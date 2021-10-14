@@ -6,9 +6,13 @@ function sendDta(data, typeOf) {
             console.log('Adding!');
             xhttp.open('POST', '/adduser', data.usrname);
             xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log(xhttp.responseText);
+                    document.cookie = `usrname=${data.usrname};pssword=${data.pssword}`;
+                    console.log(docuemnt.cookie);
+                } else if (xhttp.status == 500) {
+                    console.log('Invalid!');
                 }
             }
             xhttp.send(JSON.stringify(data));
@@ -18,16 +22,24 @@ function sendDta(data, typeOf) {
             xhttp.open('POST', '/signin', data.usrname, data.pssword);
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.send(JSON.stringify(data));
-            xhttp.onload = function() {
-                var dta = xhttp.response;
-                console.log(dta);
+            xhttp.onload = function () {
+                if (xhttp.status == 406) {
+                    console.log('Fail.');
+                    window.location.href = "/account";
+                } else {
+                    console.log('Success!');
+                    console.log(document.cookie);
+                    document.cookie = `usrname=${data.usrname};`;
+                    document.cookie = `pssword=${data.pssword}`;
+                    console.log(document.cookie);
+                }
             }
             break;
         case 'GET_USER_DTA':
             console.log('Gettin Data!');
             xhttp.open('GET', '/getdata', data.usrname, data.password);
             xhttp.send();
-            xhttp.onload = function() {
+            xhttp.onload = function () {
                 var dta = xhttp.response;
                 console.log(dta);
             }

@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-    <script src="dataManage.js"></script>
+    <link rel="stylesheet" href="stylesheets/index.css">
+    <script src="scripts/index.js"></script>
+    <script src="scripts/dataManage.js"></script>
 </head>
 
 <body>
@@ -22,20 +22,23 @@
             <a href="/contact">
                 <img src="images/placeholder.png" id="contact">
             </a>
+            <a href="/account">
+                <img src="images/placeholder.png" id="account">
+            </a>
         </div>
     </div>
     <div class="content">
+        <h1>Signup placeholder</h1>
         <input type="text" id="fname">
         <input type="text" id="lname">
         <input type="text" id="usrname">
         <input type="text" id="pssword">
         <button onclick="sendDta({
-            'fname': document.getElementById('fname').value,
-            'lname': document.getElementById('lname').value,
-            'usrname': document.getElementById('usrname').value,
-            'pssword': document.getElementById('pssword').value,
-        }, 'ADD_USER')">
-        </button>
+            fname: document.getElementById('fname').value,
+            lname: document.getElementById('lname').value,
+            usrname: document.getElementById('usrname').value,
+            pssword: document.getElementById('pssword').value,
+        }, 'ADD_USER')">Sign up!</button>
     </div>
 </body>
 
