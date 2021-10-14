@@ -4,27 +4,7 @@
 <head>
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
-    <script>
-        function send(fname, lname, usrname, pssword) {
-            xhr = new XMLHttpRequest();
-            var url = "url";
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = xhr.responseText;
-                    console.log(res);
-                }
-            }
-            var data = JSON.stringify({
-                fname,
-                lname,
-                usrname,
-                pssword
-            });
-            xhr.send(data);
-        }
-    </script>
+    <script src="dataManage.js"></script>
 </head>
 
 <body>
@@ -45,18 +25,17 @@
         </div>
     </div>
     <div class="content">
-        <input id="fname">
-        <input id="lname">
-        <input id="usrname">
-        <input id="pssword">
-        <button onclick="send(
-            document.getElementById('fname').value,
-            document.getElementById('lname').value,
-            document.getElementById('usrname').value,
-            document.getElementById('pssword').value,
-        )">
-        Submit
-    </button>
+        <input type="text" id="fname">
+        <input type="text" id="lname">
+        <input type="text" id="usrname">
+        <input type="text" id="pssword">
+        <button onclick="sendDta({
+            'fname': document.getElementById('fname').value,
+            'lname': document.getElementById('lname').value,
+            'usrname': document.getElementById('usrname').value,
+            'pssword': document.getElementById('pssword').value,
+        }, 'ADD_USER')">
+        </button>
     </div>
 </body>
 
