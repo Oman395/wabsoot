@@ -12,6 +12,8 @@ var server = new https.createServer(options, handleRequest);
 
 server.listen(443, '192.168.1.178');
 
+// Pretty much just handles how I send data, if it gets literally any other request it treats it essentially like a get request-- could cause issues for reverse engineers, oh well
+
 function handleRequest(req, res) {
     switch (req.method) {
         case 'POST':
@@ -25,6 +27,8 @@ function handleRequest(req, res) {
             break;
     }
 }
+
+// Sets up the file, if it has no file type default to html, make sure it exist and such, pretty simple
 
 function getFile(url, callback) {
     if (fs.existsSync(`./webpage${url}`) || fs.existsSync(`./webpage${url}.html`)) {
@@ -62,19 +66,23 @@ function getFile(url, callback) {
     }
 }
 
+// Handle post request, gather data then send it to handler
+
 function post(req, res) {
     var body = '';
 
-    req.on('data', function(data) {
+    req.on('data', function (data) {
         body += data;
         if (body.length > 1e6)
             request.connection.destroy();
     });
-    req.on('end', function() {
+    req.on('end', function () {
         var data = JSON.parse(body);
         handleData(data, res);
     });
 }
+
+// Handle get request, get data from getFile then send to user
 
 function get(req, res) {
     var url = req.url;
@@ -91,6 +99,8 @@ function get(req, res) {
     });
 }
 
+// Pretty much just another get handler, might merge get and other
+
 function other(req, res) {
     var url = req.url;
     getFile(url, (data) => {
@@ -105,6 +115,8 @@ function other(req, res) {
         }
     });
 }
+
+// Data handler, prob gonna make my own headers for JSON data for the function to run, then tell final function what to do (with 'failed' variable)
 
 function handleData(data, res) {
     var failed = false;

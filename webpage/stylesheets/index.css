@@ -1,3 +1,5 @@
+/* Make sure no odd formatting issues*/
+
 html {
     margin: 0;
     padding: 0;
@@ -9,9 +11,11 @@ body {
     padding: 0;
 }
 
+/* Header color and design */
+
 .header {
     width: 100vw;
-    height: min(12vh, 15vw);
+    height: min(12vh, 15vw); /* width needs to be 1.5x less then height for it to scale with width, otherwise it scales with height */
     background-color: rgb(66, 66, 66);
 }
 
@@ -19,17 +23,17 @@ body {
     display: inline-block;
 }
 
-.header img {
+.header img { /* Button defaults */
     height: min(10vh, 12.5vw);
     padding: min(1vh, 1.25vw);
     padding-right: 0;
 }
 
-a {
+a { /* Could prob put this in .header a, but ehhhh */
     text-decoration: none;
 }
 
-.menu:hover .menuDrop {
+.menu:hover .menuDrop { /* Show dropdown when hovered over, TODO: Make it an anmiation */
     top: min(11vh, 13.75vw);
     left: min(20vh, 25vw);
     border: min(2vh, 2vw) solid rgb(66, 66, 66);
@@ -45,39 +49,39 @@ a {
     padding: 0;
 }
 
-#home {
+#home { /* Configure home btn */
     width: min(21vh, 26.25vw);
 }
 
-.menu .menuDrop {
+.menu .menuDrop { /* Hide drop down when not hovered */
     display: none;
 }
 
-.menu img {
+.menu img { /* Default size for drop down menu and starter button */
     width: min(21vh, 26.25vw);
 }
 
-.menu .menuDrop img {
+.menu .menuDrop img { /* Defualt sizing for drop down images */
     height: min(5vh, 6.25vw);
     padding: min(1vh, 1.25vw);
     padding-bottom: 0;
 }
 
-.socials {
+.socials { /* Make socials look good */
     float: right;
     padding: min(1vh, 1.25vw);
 }
 
-.socials img {
+.socials img { /* See above */
     width: min(8vh, 10vw);
     padding: min(1vh, 1.25vw);
     height: min(8vh, 10vw);
 }
 
-.header img:hover {
+.header img:hover { /* Shadow when hovered */
     filter: drop-shadow(3px 0px 3px rgb(31, 31, 31))
 }
 
-#twitter-widget-0 {
+#twitter-widget-0 { /* Make twitter look decent */
     margin: min(1vh, 1.25vw) !important;
 }
