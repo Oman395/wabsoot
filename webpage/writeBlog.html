@@ -4,6 +4,8 @@
 <head>
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="/stylesheets/central.css">
+    <link rel="stylesheet" href="/stylesheets/writeBlog.css">
+    <script src="/scripts/utilities.js"></script>
 </head>
 
 <body>
@@ -43,7 +45,28 @@
         </div>
     </div>
     <div class="content">
-
+        <p class="heading">
+            If you are here and aren't oran, leave.
+        </p>
+        <p class="subheading">
+            This is a page for creating blog entries. Nothing interesting.
+        </p>
+        <div class="form">
+            <input id="title" placeholder="Title"><br>
+            <input id="subtitle" placeholder="Heading"><br>
+            <textarea cols="40" rows="5" id="body" placeholder="Body text"></textarea><br>
+            <input id="usrname" placeholder="Username"><br>
+            <input id="pssword" placeholder="Password"><br>
+            <button class="submit" onclick="handleForm({
+                usrname: document.getElementById('usrname').value,
+                pssword: document.getElementById('pssword').value,
+                title: document.getElementById('title').value,
+                header: document.getElementById('subtitle').value,
+                body: document.getElementById('body').value,
+            }, '/sendblog')">
+                Send
+            </button>
+        </div>
     </div>
 </body>
 

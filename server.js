@@ -1,16 +1,11 @@
 const fs = require('fs');
-const https = require('https');
+const https = require('http');
 const db = require('quick.db');
 const mime = require('mime-types');
 
-const options = {
-    key: fs.readFileSync('./keys/private.key'),
-    cert: fs.readFileSync('./keys/certificate.crt'),
-}
+var server = new https.createServer(handleRequest);
 
-var server = new https.createServer(options, handleRequest);
-
-server.listen(443, '192.168.1.178');
+server.listen(80, '10.58.83.6');
 
 // Pretty much just handles how I send data, if it gets literally any other request it treats it essentially like a get request-- could cause issues for reverse engineers, oh well
 
@@ -78,7 +73,7 @@ function post(req, res) {
     });
     req.on('end', function () {
         var data = JSON.parse(body);
-        handleData(data, res);
+        handleData(data, res, req.url);
     });
 }
 
@@ -118,9 +113,8 @@ function other(req, res) {
 
 // Data handler, prob gonna make my own headers for JSON data for the function to run, then tell final function what to do (with 'failed' variable)
 
-function handleData(data, res) {
+function handleData(data, res, url) {
     var failed = false;
-    // Do shit with data, dk what data i'll be working with yet
     if (!failed) {
         res.writeHead(201);
         res.end();
