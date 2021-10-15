@@ -26,6 +26,8 @@ function handleRequest(req, res) {
     }
 }
 
+// Sets up the file, if it has no file type default to html, make sure it exist and such, pretty simple
+
 function getFile(url, callback) {
     if (fs.existsSync(`./webpage${url}`) || fs.existsSync(`./webpage${url}.html`)) {
         var type = mime.lookup(url);
@@ -62,6 +64,8 @@ function getFile(url, callback) {
     }
 }
 
+// Handle post request, gather data then send it to handler
+
 function post(req, res) {
     var body = '';
 
@@ -72,9 +76,11 @@ function post(req, res) {
     });
     req.on('end', function() {
         var data = JSON.parse(body);
-        handleData(data, res);
+        handleData(data, res, req.url);
     });
 }
+
+// Handle get request, get data from getFile then send to user
 
 function get(req, res) {
     var url = req.url;
@@ -91,6 +97,8 @@ function get(req, res) {
     });
 }
 
+// Pretty much just another get handler, might merge get and other
+
 function other(req, res) {
     var url = req.url;
     getFile(url, (data) => {
@@ -106,9 +114,10 @@ function other(req, res) {
     });
 }
 
-function handleData(data, res) {
+// Data handler, prob gonna make my own headers for JSON data for the function to run, then tell final function what to do (with 'failed' variable)
+
+function handleData(data, res, url) {
     var failed = false;
-    // Do shit with data, dk what data i'll be working with yet
     if (!failed) {
         res.writeHead(201);
         res.end();

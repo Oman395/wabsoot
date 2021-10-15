@@ -1,7 +1,10 @@
+/* Make sure no odd formatting issues*/
+
 html {
     margin: 0;
     padding: 0;
     background-color: rgb(41, 41, 41);
+    z-index: 10;
 }
 
 body {
@@ -9,75 +12,120 @@ body {
     padding: 0;
 }
 
+
+/* Header color and design */
+
 .header {
     width: 100vw;
     height: min(12vh, 15vw);
+    /* width needs to be 1.25x less then height for it to scale with width, otherwise it scales with height */
     background-color: rgb(66, 66, 66);
-}
-
-.header div {
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    z-index: 50;
 }
 
 .header img {
+    /* Button defaults */
     height: min(10vh, 12.5vw);
-    padding: min(1vh, 1.25vw);
     padding-right: 0;
 }
 
 a {
+    /* Could prob put this in .header a, but ehhhh */
     text-decoration: none;
 }
 
 .menu:hover .menuDrop {
-    top: min(11vh, 13.75vw);
-    left: min(20vh, 25vw);
-    border: min(2vh, 2vw) solid rgb(66, 66, 66);
-    border-radius: min(1vh, 1.25vw);
-    position: absolute;
+    /* Show dropdown when hovered over, TODO: Make it an anmiation */
     display: block;
-    background-color: rgb(66, 66, 66);
-    padding: 0;
     z-index: 99;
 }
 
-.menuDrop img {
-    padding: 0;
+.menu {
+    width: min(25vh, 31.25vw);
+    position: absolute;
+    left: min(19vh, 22.75vw);
 }
 
-#home {
-    width: min(21vh, 26.25vw);
+.menu:hover {
+    height: min(40vh, 50vw);
 }
 
-.menu .menuDrop {
-    display: none;
+.header img:hover {
+    filter: drop-shadow(4px 2px 2px rgb(0, 0, 0))
 }
 
 .menu img {
+    padding: min(1vh, 1.25vw);
+}
+
+#home {
+    /* Configure home btn */
+    width: min(21vh, 26.25vw);
+    display: inline;
+    position: absolute;
+    top: min(1vh, 1.25vw);
+    left: 0;
+}
+
+.menu .menuDrop {
+    /* Hide drop down when not hovered */
+    border: min(2vh, 2vw) solid rgb(66, 66, 66);
+    border-radius: min(1vh, 1.25vw);
+    display: none;
+    background-color: rgb(66, 66, 66);
+    padding: 0;
+    position: absolute;
+    top: min(13vh, 16.25vw);
+    width: min(21vh, 26.25vw);
+    left: 0;
+}
+
+.menu #menu_img {
+    position: absolute;
+    left: min(1vh, 1.25vw);
+    top: 0;
+}
+
+.menu img {
+    /* Default size for drop down menu and starter button */
     width: min(21vh, 26.25vw);
 }
 
 .menu .menuDrop img {
+    /* Defualt sizing for drop down images */
     height: min(5vh, 6.25vw);
-    padding: min(1vh, 1.25vw);
+    padding: 0;
     padding-bottom: 0;
+    position: relative;
+    z-index: 99;
 }
 
 .socials {
-    float: right;
+    /* Make socials look good */
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline;
     padding: min(1vh, 1.25vw);
 }
 
 .socials img {
+    /* See above */
     width: min(8vh, 10vw);
+    position: absolute;
+    right: 0;
+    display: inline;
     padding: min(1vh, 1.25vw);
     height: min(8vh, 10vw);
 }
 
-.header img:hover {
-    filter: drop-shadow(3px 0px 3px rgb(31, 31, 31))
+.socials #github {
+    right: min(9vh, 11.25vw);
 }
 
 #twitter-widget-0 {
+    /* Make twitter look decent */
     margin: min(1vh, 1.25vw) !important;
 }
