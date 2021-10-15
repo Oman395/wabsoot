@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="stylesheets/index.css">
+    <script src="scripts/index.js"></script>
+    <script>
+        function send(data) {
+            var date = new Date();
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('POST', '/addblogentry');
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+            xhttp.onload = function () {
+                if (xhttp.status == 200) {
+                    console.log('Success!');
+                } else {
+                    console.error('Something went wrong. Or more likely, invalid user.');
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="leftButtons">
+            <a href="/">
+                <img src="images/placeholder.png" id="home">
+            </a>
+            <a href="/about">
+                <img src="images/placeholder.png" id="about">
+            </a>
+            <a href="/support">
+                <img src="images/placeholder.png" id="support">
+            </a>
+            <a href="/contact">
+                <img src="images/placeholder.png" id="contact">
+            </a>
+            <a href="/account">
+                <img src="images/placeholder.png" id="account">
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <input id="usrname">
+        <input id="pssword">
+        <input id="title">
+        <input id="header">
+        <input id="body">
+        <button onclick="send({
+            usrname: document.getElementById('usrname').value,
+            pssword: document.getElementById('pssword').value,
+            title: document.getElementById('title').value,
+            header: document.getElementById('header').value,
+            body: document.getElementById('body').value,
+            })">Send</button>
+    </div>
+</body>
+
+</html>

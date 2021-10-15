@@ -1,0 +1,29 @@
+.sidebar {
+    position: absolute;
+    height: calc(100vh - min(8vh, 8vw));
+    width: min(24vw, 24vh);
+    padding: 0;
+    margin: 0;
+    background-color: rgb(99, 99, 99);
+    text-align: center;
+}
+.center {
+    display: inline;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    right: 0px;
+    width: calc(100vw - min(24vw, 24vh));
+    height: calc(100vh - min(8vh, 8vw));
+    background-color:rgb(165, 165, 165);
+}
+
+.twitter-timeline {
+    width: min(22vw, 22vh) !important;
+    max-height: 70vh;
+    padding-top: min(0.8vw, 0.8vh) !important;
+    padding-bottom: min(0.6vw, 0.6vh) !important;
+}
+.twitter::before {
+    display:none;
+}

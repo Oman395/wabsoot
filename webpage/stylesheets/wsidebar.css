@@ -1,0 +1,17 @@
+.sidebar {
+    width: min(32vh, 40vw);
+    height: calc(100vh - min(12vh, 15vw));
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    background-color: rgb(90, 89, 89);
+}
+
+.content {
+    position: absolute;
+    display: inline-block;
+    background-color: rgb(41, 41, 41);
+    width: calc(100vw - min(32vh, 40vw));
+    height: calc(100vh - min(12vh, 15vw));
+    left: 0;
+}

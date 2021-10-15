@@ -1,4 +1,4 @@
 keys
-.vscode
-node_modules
-json.*
+data.*
+node*
+package-lock.json
