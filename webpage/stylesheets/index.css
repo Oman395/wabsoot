@@ -1,5 +1,3 @@
-/* Make sure no odd formatting issues*/
-
 html {
     margin: 0;
     padding: 0;
@@ -12,13 +10,10 @@ body {
     padding: 0;
 }
 
-
-/* Header color and design */
-
 .header {
     width: 100vw;
     height: min(12vh, 15vw);
-    /* width needs to be 1.25x less then height for it to scale with width, otherwise it scales with height */
+    /*min(xvh, 1.25xvw) means width needs to be 1.25x smaller then height to affect scalling*/
     background-color: rgb(66, 66, 66);
     position: absolute;
     top: 0;
@@ -26,20 +21,21 @@ body {
 }
 
 .header img {
-    /* Button defaults */
     height: min(10vh, 12.5vw);
     padding-right: 0;
 }
 
 a {
-    /* Could prob put this in .header a, but ehhhh */
     text-decoration: none;
 }
 
 .menu:hover .menuDrop {
-    /* Show dropdown when hovered over, TODO: Make it an anmiation */
     display: block;
     z-index: 99;
+}
+
+.menu:hover #menu_img {
+    filter: brightness(0.8);
 }
 
 .menu {
@@ -53,7 +49,11 @@ a {
 }
 
 .header img:hover {
-    filter: drop-shadow(4px 2px 2px rgb(0, 0, 0))
+    filter: brightness(0.8);
+}
+
+.header img:active {
+    filter: brightness(0.7);
 }
 
 .menu img {
@@ -61,7 +61,6 @@ a {
 }
 
 #home {
-    /* Configure home btn */
     width: min(21vh, 26.25vw);
     display: inline;
     position: absolute;
@@ -70,7 +69,6 @@ a {
 }
 
 .menu .menuDrop {
-    /* Hide drop down when not hovered */
     border: min(2vh, 2vw) solid rgb(66, 66, 66);
     border-radius: min(1vh, 1.25vw);
     display: none;
@@ -84,17 +82,16 @@ a {
 
 .menu #menu_img {
     position: absolute;
-    left: min(1vh, 1.25vw);
-    top: 0;
+    left: min(2.2vh, 2.55vw);
+    top: min(1vh, 1.25vw);
+    padding: 0;
 }
 
 .menu img {
-    /* Default size for drop down menu and starter button */
     width: min(21vh, 26.25vw);
 }
 
 .menu .menuDrop img {
-    /* Defualt sizing for drop down images */
     height: min(5vh, 6.25vw);
     padding: 0;
     padding-bottom: 0;
@@ -103,7 +100,6 @@ a {
 }
 
 .socials {
-    /* Make socials look good */
     position: absolute;
     right: 0;
     top: 0;
@@ -112,7 +108,6 @@ a {
 }
 
 .socials img {
-    /* See above */
     width: min(8vh, 10vw);
     position: absolute;
     right: 0;
@@ -126,6 +121,12 @@ a {
 }
 
 #twitter-widget-0 {
-    /* Make twitter look decent */
     margin: min(1vh, 1.25vw) !important;
+}
+
+.blog {
+    margin: 0;
+    border: none;
+    width: calc(100vw - min(32vh, 40vw));
+    height: calc(100vh - min(12vh, 15vw));
 }

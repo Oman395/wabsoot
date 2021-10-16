@@ -1,7 +1,7 @@
 function sendJson(data, url) { // JSON sender, can send pretty much any data
     var xhttp = new XMLHttpRequest();
-    xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.open('POST', url);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(JSON.stringify(data));
 }
 

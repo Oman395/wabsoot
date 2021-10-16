@@ -3,6 +3,8 @@ const https = require('https');
 const db = require('quick.db');
 const mime = require('mime-types');
 
+var countOfHomeVisits = 0;
+
 const options = {
     key: fs.readFileSync('./keys/private.key'),
     cert: fs.readFileSync('./keys/certificate.crt'),
@@ -46,8 +48,8 @@ function getFile(url, callback) {
                 errCode: 200,
             });
         } else {
-            console.log('New user (at home page)');
-            console.log('');
+            countOfHomeVisits++;
+            console.log(`New homepage visitor! That marks ${countOfHomeVisits} visits to homepage!`);
             callback({
                 valid: true,
                 mime: 'text/html',
@@ -68,7 +70,6 @@ function getFile(url, callback) {
 
 function post(req, res) {
     var body = '';
-
     req.on('data', function(data) {
         body += data;
         if (body.length > 1e6)
@@ -118,6 +119,47 @@ function other(req, res) {
 
 function handleData(data, res, url) {
     var failed = false;
+    var admin = JSON.parse(fs.readFileSync('./admin.json'));
+    switch (url) {
+        case '/sendblog':
+            if (data.title && data.header && data.body && data.usrname == admin.usrname && data.pssword == admin.pssword) {
+                db.set(data.title, {
+                    header: data.header,
+                    body: data.body,
+                    date: new Date(),
+                });
+                db.push('entries', data.title);
+                console.log('New blog entry!');
+                console.log(data.title);
+                console.log(data.header);
+                console.log(data.body);
+                console.log(new Date());
+                res.writeHead(201);
+                res.end();
+            } else if (data.title && data.header && data.body && data.usrname && data.pssword) {
+                res.writeHead(401);
+                res.end();
+            } else {
+                console.log(data.usrname == admin.usrname && data.pssword == admin.pssword, data, admin);
+                res.writeHead(400);
+                res.end();
+            }
+            break;
+        case '/getblogs':
+            var blogs = db.get('entries');
+            var retData = {};
+            blogs = blogs.reverse();
+            for (var i = data.blogIndex; i < Math.min(data.blogIndex + 5, blogs.length); i++) {
+                var active = blogs[i];
+                retData[active] = db.get(active);
+            }
+            retData.count = blogs.length;
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify(retData));
+            break;
+    }
     if (!failed) {
         res.writeHead(201);
         res.end();
