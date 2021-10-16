@@ -1,0 +1,58 @@
+#content div {
+    background-color: rgb(88, 88, 88);
+    margin: min(2vh, 2.5vw);
+    padding: 0;
+    border: min(0.5vh, 0.625vw) solid rgb(88, 88, 88);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+#content p {
+    padding: min(0.5vh, 0.625vw);
+    margin: 0;
+    font-family: monospace, FreeMono;
+    color: white;
+}
+
+#content .title {
+    font-size: min(6vh, 7.5vw);
+}
+
+#content .date {
+    font-size: min(2vh, 2.5vw);
+}
+
+#content .subtitle {
+    font-size: min(3vh, 4.25vw);
+}
+
+#content .body {
+    font-size: min(2vh, 2.5vw);
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+    background-color: rgb(66, 66, 66);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#content button {
+    font-size: min(2vh, 2.5vw);
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+    background-color: rgb(66, 66, 66);
+    color: white;
+    display: inline;
+    margin: min(2vh, 2.5vw);
+}
+
+#content button:hover {
+    background-color: rgb(77, 77, 77);
+    border: min(0.5vh, 0.625vw) solid rgb(77, 77, 77);
+}
+
+#content button:active {
+    background-color: rgb(55, 55, 55);
+    border: min(0.5vh, 0.625vw) solid rgb(55, 55, 55);
+}
