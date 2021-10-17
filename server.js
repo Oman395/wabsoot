@@ -67,7 +67,7 @@ function getFile(url, callback) {
         } else {
             callback({
                 valid: false,
-                mime: 'text/plain',
+                mime: 'text/html',
                 errCode: 404,
             });
         }
@@ -132,9 +132,12 @@ function get(req, res) {
                     'Content-Type': data.mime,
                 });
                 res.end(data.body);
-            } else {
+            } else if (data.errCode != 404) {
                 res.writeHead(data.errCode);
                 res.end();
+            } else {
+                res.writeHead(data.errCode, data.mime);
+                res.end(fs.readFileSync('./webpage/404.html'));
             }
         });
     } catch (e) {

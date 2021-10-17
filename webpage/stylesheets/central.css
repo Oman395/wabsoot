@@ -5,7 +5,7 @@
     width: 100vw;
     height: calc(100vh - min(12vh, 15vw));
     left: 0;
-    bottom: 0;
+    top: min(12vh, 15vw);
 }
 
 

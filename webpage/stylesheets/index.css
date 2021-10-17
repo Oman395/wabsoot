@@ -2,6 +2,7 @@ html {
     margin: 0;
     padding: 0;
     background-color: rgb(41, 41, 41);
+    height: webkit-view-available;
     z-index: 10;
 }
 
@@ -41,7 +42,7 @@ a {
 .menu {
     width: min(25vh, 31.25vw);
     position: absolute;
-    left: min(19vh, 22.75vw);
+    left: min(19vh, 23.75vw);
 }
 
 .menu:hover {
@@ -69,7 +70,7 @@ a {
 }
 
 .menu .menuDrop {
-    border: min(2vh, 2vw) solid rgb(66, 66, 66);
+    border: min(2vh, 2.5vw) solid rgb(66, 66, 66);
     border-radius: min(1vh, 1.25vw);
     display: none;
     background-color: rgb(66, 66, 66);
