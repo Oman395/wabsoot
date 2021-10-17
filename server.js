@@ -3,8 +3,6 @@ const https = require('https');
 const db = require('quick.db');
 const mime = require('mime-types');
 
-var countOfHomeVisits = 0;
-
 const options = {
     key: fs.readFileSync('./keys/private.key'),
     cert: fs.readFileSync('./keys/certificate.crt'),
@@ -29,9 +27,9 @@ function handleRequest(req, res) {
         }
     } catch (e) {
         if (res && req) {
-            console.error(`ERROR ${e.errCode}:
-            ${e}
-            ============================================`);
+            console.error(`======================================================================
+ERROR:
+${e}`);
             res.writeHead(500);
             res.end();
         }
@@ -59,8 +57,6 @@ function getFile(url, callback) {
                     errCode: 200,
                 });
             } else {
-                countOfHomeVisits++;
-                console.log(`New homepage visitor! That marks ${countOfHomeVisits} visits to homepage!`);
                 callback({
                     valid: true,
                     mime: 'text/html',
@@ -76,9 +72,9 @@ function getFile(url, callback) {
             });
         }
     } catch (e) {
-        console.error(`ERROR ${e.errCode}:
-        ${e}
-        ============================================`);
+        console.error(`======================================================================
+ERROR:
+${e}`);
         callback({
             valid: false,
             mime: 'text/plain',
@@ -103,19 +99,22 @@ function post(req, res) {
                     var data = JSON.parse(body);
                     handleData(data, res, req.url);
                 } catch {
+                    console.error(``)
                     res.writeHead(400);
                     res.end();
                 }
             } else {
+                console.error(`======================================================================
+Bad request from client! Probably their fault though.`)
                 res.writeHead(400);
                 res.end();
             }
         });
     } catch (e) {
         if (res && req) {
-            console.error(`ERROR ${e.errCode}:
-            ${e}
-            ============================================`);
+            console.error(`======================================================================
+ERROR:
+${e}`);
             res.writeHead(500);
             res.end();
         }
@@ -140,9 +139,9 @@ function get(req, res) {
         });
     } catch (e) {
         if (res && req) {
-            console.error(`ERROR ${e.errCode}:
-            ${e}
-            ============================================`);
+            console.error(`======================================================================
+ERROR:
+${e}`);
             res.writeHead(500);
             res.end();
         }
@@ -167,9 +166,9 @@ function other(req, res) {
         });
     } catch (e) {
         if (res && req) {
-            console.error(`ERROR ${e.errCode}:
-            ${e}
-            ============================================`);
+            console.error(`======================================================================
+ERROR:
+${e}`);
             res.writeHead(500);
             res.end();
         }
@@ -191,18 +190,18 @@ function handleData(data, res, url) {
                         date: new Date(),
                     });
                     db.push('entries', data.title);
-                    console.log('New blog entry!');
-                    console.log(data.title);
-                    console.log(data.header);
-                    console.log(data.body);
-                    console.log(new Date());
+                    console.log(`======================================================================
+New blog entry!
+${data.title}
+${new Date()}
+${data.header}
+${data.body}`);
                     res.writeHead(201);
                     res.end();
                 } else if (data.title && data.header && data.body && data.usrname && data.pssword) {
                     res.writeHead(401);
                     res.end();
                 } else {
-                    console.log(data.usrname == admin.usrname && data.pssword == admin.pssword, data, admin);
                     res.writeHead(400);
                     res.end();
                 }
@@ -233,9 +232,9 @@ function handleData(data, res, url) {
         }
     } catch (e) {
         if (res && req) {
-            console.error(`ERROR ${e.errCode}:
-            ${e}
-            ============================================`);
+            console.error(`======================================================================
+ERROR:
+${e}`);
             res.writeHead(500);
             res.end();
         }

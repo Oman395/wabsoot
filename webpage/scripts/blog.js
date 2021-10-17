@@ -4,11 +4,45 @@ xhttp.setRequestHeader('Content-Type', 'application/json');
 var args = {
     'blogIndex': 0,
 };
-var index;
+var index = 0;
 var count;
 xhttp.addEventListener('loadend', () => {
     var data = JSON.parse(xhttp.response);
     var active = document.getElementById('content');
+    count = data.count;
+    if (args.blogIndex - 5 >= 0) {
+        var button = document.createElement('button');
+        button.innerHTML = 'Previous';
+        button.id = 'top';
+        button.onclick = prev;
+        active.appendChild(button);
+    }
+    if (args.blogIndex + 5 < data.count) {
+        var button = document.createElement('button');
+        button.innerHTML = 'Next';
+        button.id = 'top';
+        button.onclick = next;
+        active.appendChild(button);
+    }
+    if (index != 0) {
+        var first = document.createElement('button');
+        first.innerHTML = 'Latest';
+        first.id = 'top';
+        first.onclick = gotoFirst;
+        active.appendChild(first);
+        index = args.blogIndex;
+    }
+    if (index != count - count % 5 && count - count % 5 != count) {
+        var last = document.createElement('button');
+        last.innerHTML = 'First';
+        last.id = 'top';
+        last.onclick = gotoLast;
+        active.appendChild(last);
+    }
+    var print = document.createElement('p');
+    print.innerHTML = index / 5 + 1;
+    print.id = 'index';
+    active.appendChild(print);
     Object.keys(data).forEach((entry) => {
         if (entry != 'count') {
             var div = document.createElement("div");
@@ -21,31 +55,39 @@ xhttp.addEventListener('loadend', () => {
         }
     });
     count = data.count;
-    var first = document.createElement('button');
-    first.innerHTML = 'Latest';
-    first.id = 'first';
-    first.onclick = gotoFirst;
-    active.appendChild(first);
-    index = args.blogIndex;
     if (args.blogIndex - 5 >= 0) {
         var button = document.createElement('button');
         button.innerHTML = 'Previous';
-        button.id = 'prev';
+        button.id = 'bottom';
         button.onclick = prev;
         active.appendChild(button);
     }
     if (args.blogIndex + 5 < data.count) {
         var button = document.createElement('button');
         button.innerHTML = 'Next';
-        button.id = 'next';
+        button.id = 'bottom';
         button.onclick = next;
         active.appendChild(button);
     }
-    var last = document.createElement('button');
-    last.innerHTML = 'First';
-    last.id = 'last';
-    last.onclick = gotoLast;
-    active.appendChild(last);
+    if (index != 0) {
+        var first = document.createElement('button');
+        first.innerHTML = 'Latest';
+        first.id = 'bottom';
+        first.onclick = gotoFirst;
+        active.appendChild(first);
+        index = args.blogIndex;
+    }
+    if (index != count - count % 5 && count - count % 5 != count) {
+        var last = document.createElement('button');
+        last.innerHTML = 'First';
+        last.id = 'bottom';
+        last.onclick = gotoLast;
+        active.appendChild(last);
+    }
+    var print = document.createElement('p');
+    print.innerHTML = index / 5 + 1;
+    print.id = 'index';
+    active.appendChild(print);
 })
 
 function updateContent() {
