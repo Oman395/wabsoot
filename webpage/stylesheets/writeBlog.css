@@ -25,7 +25,8 @@
     font-family: monospace, FreeMono;
     font-size: min(2vh, 2.5vw);
     color: white;
-    border: none;
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
 }
 
 .form textarea {
@@ -34,7 +35,8 @@
     font-family: monospace, FreeMono;
     font-size: min(2vh, 2.5vw);
     color: white;
-    border: none;
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
 }
 
 .form #title {
@@ -70,4 +72,16 @@
     color: white;
     font-family: monospace, FreeMono;
     font-size: min(2vh, 2.5vw);
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+.form .submit:hover {
+    background-color: rgb(77, 77, 77);
+    border: min(0.5vh, 0.625vw) solid rgb(77, 77, 77);
+}
+
+.form .submit:active {
+    background-color: rgb(55, 55, 55);
+    border: min(0.5vh, 0.625vw) solid rgb(55, 55, 55);
 }
