@@ -2,7 +2,9 @@ function sendJson(data, url, creds) { // JSON sender, can send pretty much any d
     var xhttp = new XMLHttpRequest();
     xhttp.open('POST', url);
     xhttp.setRequestHeader('Content-Type', 'application/json');
-    xhttp.setRequestHeader('Authorization', 'basic' + btoa(data.usrname, data.pssword));
+    xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${data.usrname}:${data.pssword}`)}`);
+    delete data.usrname;
+    delete data.pssword;
     xhttp.send(JSON.stringify(data));
 }
 
@@ -11,7 +13,7 @@ function handleForm(data, url) { // Form logic, makes sure all data types arent 
     Object.keys(data).forEach((value) => {
         if (data[value] == undefined) valid = fale;
     });
-    if (valid) sendJson(data, url); // Send tshe form data
+    if (valid) sendJson(data, url); // Send the form data
 }
 
 /*
