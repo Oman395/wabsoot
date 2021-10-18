@@ -2,13 +2,14 @@ const fs = require('fs');
 const https = require('https');
 const db = require('quick.db');
 const mime = require('mime-types');
+const { start } = require('repl');
 
 const options = {
     key: fs.readFileSync('./keys/private.key'),
     cert: fs.readFileSync('./keys/certificate.crt'),
 }
 
-var server = new https.createServer(options, handleRequest);
+var server = new https.createServer(options, handleReq);
 
 server.listen(443, '192.168.1.178');
 
@@ -88,18 +89,20 @@ ${e}`);
 function post(req, res) {
     try {
         var body = '';
-        req.on('data', function(data) {
+        req.on('data', function (data) {
             body += data;
             if (body.length > 1e6)
                 request.connection.destroy();
         });
-        req.on('end', function() {
+        req.on('end', function () {
             if (body) {
                 try {
                     var data = JSON.parse(body);
-                    handleData(data, res, req.url);
-                } catch {
-                    console.error(``)
+                    handleData(data, res, req, req.url);
+                } catch (e) {
+                    console.error(body);
+                    console.error(e);
+                    console.error(req);
                     res.writeHead(400);
                     res.end();
                 }
@@ -180,8 +183,9 @@ ${e}`);
 
 // Data handler, prob gonna make my own headers for JSON data for the function to run, then tell final function what to do (with 'failed' variable)
 
-function handleData(data, res, url) {
+function handleData(data, res, req, url) {
     try {
+        console.log(db.get('entries'));
         var failed = false;
         var admin = JSON.parse(fs.readFileSync('./admin.json'));
         switch (url) {
@@ -241,5 +245,19 @@ ${e}`);
             res.writeHead(500);
             res.end();
         }
+    }
+}
+
+var queue = [];
+
+function handleReq(req, res) {
+    queue.push({ req, res });
+    startQueueLoop();
+}
+
+function startQueueLoop() {
+    while (queue.length > 0) {
+        handleRequest(queue[0].req, queue[0].res);
+        queue.shift();
     }
 }
