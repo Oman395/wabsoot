@@ -2,6 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const db = require('quick.db');
 const mime = require('mime-types');
+const basicAuth = require('basic-auth');
 
 const options = {
     key: fs.readFileSync('./keys/private.key'),
@@ -97,7 +98,7 @@ function post(req, res) {
             if (body) {
                 try {
                     var data = JSON.parse(body);
-                    handleData(data, res, req.url);
+                    handleData(data, res, req, req.url);
                 } catch {
                     console.error(``)
                     res.writeHead(400);
@@ -180,13 +181,14 @@ ${e}`);
 
 // Data handler, prob gonna make my own headers for JSON data for the function to run, then tell final function what to do (with 'failed' variable)
 
-function handleData(data, res, url) {
+function handleData(data, res, req, url) {
     try {
         var failed = false;
         var admin = JSON.parse(fs.readFileSync('./admin.json'));
         switch (url) {
             case '/sendblog':
-                if (data.title && data.header && data.body && data.usrname == admin.usrname && data.pssword == admin.pssword) {
+                var user = basicAuth(req);
+                if (data.title && data.header && data.body && user.name == admin.usrname && user.pass == admin.pssword) {
                     db.set(data.title, {
                         header: data.header,
                         body: data.body,
