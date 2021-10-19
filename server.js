@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const db = require('quick.db');
 const mime = require('mime-types');
-const { start } = require('repl');
+const { exec } = require("child_process");
 
 const options = {
     key: fs.readFileSync('./keys/private.key'),
@@ -88,31 +88,35 @@ ${e}`);
 
 function post(req, res) {
     try {
-        var body = '';
-        req.on('data', function (data) {
-            body += data;
-            if (body.length > 1e6)
-                request.connection.destroy();
-        });
-        req.on('end', function () {
-            if (body) {
-                try {
-                    var data = JSON.parse(body);
-                    handleData(data, res, req, req.url);
-                } catch (e) {
-                    console.error(body);
-                    console.error(e);
-                    console.error(req);
+        if (req.url != '/command') {
+            var body = '';
+            req.on('data', function (data) {
+                body += data;
+                if (body.length > 1e6)
+                    request.connection.destroy();
+            });
+            req.on('end', function () {
+                if (body) {
+                    try {
+                        var data = JSON.parse(body);
+                        handleData(data, res, req, req.url);
+                    } catch (e) {
+                        console.error(body);
+                        console.error(e);
+                        console.error(req);
+                        res.writeHead(400);
+                        res.end();
+                    }
+                } else {
+                    console.error(`======================================================================
+Bad request from client! Probably their fault though.`)
                     res.writeHead(400);
                     res.end();
                 }
-            } else {
-                console.error(`======================================================================
-Bad request from client! Probably their fault though.`)
-                res.writeHead(400);
-                res.end();
-            }
-        });
+            });
+        } else {
+            connect(req, res);
+        }
     } catch (e) {
         if (res && req) {
             console.error(`======================================================================
@@ -185,7 +189,6 @@ ${e}`);
 
 function handleData(data, res, req, url) {
     try {
-        console.log(db.get('entries'));
         var failed = false;
         var admin = JSON.parse(fs.readFileSync('./admin.json'));
         switch (url) {

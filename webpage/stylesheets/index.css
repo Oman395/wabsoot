@@ -1,7 +1,7 @@
 html {
     margin: 0;
     padding: 0;
-    background-color: rgb(41, 41, 41);
+    background: rgb(41, 41, 41);
     height: webkit-view-available;
     z-index: 10;
 }
@@ -9,6 +9,15 @@ html {
 body {
     margin: 0;
     padding: 0;
+}
+
+@keyframes drop {
+    from {
+        margin-top: calc(-2 * min(12vh, 15vw));
+    }
+    to {
+        margin-top: min(13vh, 16.25vw);
+    }
 }
 
 .header {
@@ -24,6 +33,7 @@ body {
 .header img {
     height: min(10vh, 12.5vw);
     padding-right: 0;
+    z-index: 40;
 }
 
 a {
@@ -31,8 +41,9 @@ a {
 }
 
 .menu:hover .menuDrop {
-    display: block;
-    z-index: 99;
+    z-index: 20;
+    margin-top: min(13vh, 16.25vw);
+    visibility: visible;
 }
 
 .menu:hover #menu_img {
@@ -72,13 +83,15 @@ a {
 .menu .menuDrop {
     border: min(2vh, 2.5vw) solid rgb(66, 66, 66);
     border-radius: min(1vh, 1.25vw);
-    display: none;
     background-color: rgb(66, 66, 66);
     padding: 0;
+    visibility: hidden;
     position: absolute;
-    top: min(13vh, 16.25vw);
+    margin-top: calc(-1.9 * min(12vh, 15vw));
+    transition: visibility 0.5s, margin-top 0.5s ease-in-out 100ms;
     width: min(21vh, 26.25vw);
     left: 0;
+    z-index: 70;
 }
 
 .menu #menu_img {
@@ -86,6 +99,7 @@ a {
     left: min(2.2vh, 2.55vw);
     top: min(1vh, 1.25vw);
     padding: 0;
+    z-index: 20;
 }
 
 .menu img {
@@ -97,7 +111,7 @@ a {
     padding: 0;
     padding-bottom: 0;
     position: relative;
-    z-index: 99;
+    z-index: 20;
 }
 
 .socials {

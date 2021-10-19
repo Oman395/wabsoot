@@ -7,6 +7,7 @@ var args = {
 var index = 0;
 var count;
 xhttp.addEventListener('loadend', () => {
+    document.getElementById('content').innerHTML = ``;
     var data = JSON.parse(xhttp.response);
     var active = document.getElementById('content');
     count = data.count;
@@ -91,11 +92,10 @@ xhttp.addEventListener('loadend', () => {
 })
 
 function updateContent() {
-    document.getElementById('content').innerHTML = "";
+    document.getElementById('content').innerHTML = `<p class="title">Loading...</p>`;
     args = {
         'blogIndex': index
     };
-    console.log(args);
     xhttp.open('POST', '/getblogs');
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(JSON.stringify(args));
