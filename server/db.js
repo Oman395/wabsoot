@@ -7,39 +7,52 @@ var port = 8080 + parseInt(process.argv[2]);
 const server = new http.createServer(handleRequest);
 
 function handleRequest(req, res) {
-    var header = req.headers.authorization || '';
-    var token = header.split(/\s+/).pop() || '';
-    var auth = Buffer.from(token, 'base64').toString();
-    auth = auth.split(':');
-    auth = { usrname: auth[0], pssword: auth[1] };
-    var body = '';
-    req.on('data', function (data) {
-        body += data;
-        if (body.length > 1e6)
-            req.connection.destroy();
-    });
+    try {
+        var header = req.headers.authorization || '';
+        var token = header.split(/\s+/).pop() || '';
+        var auth = Buffer.from(token, 'base64').toString();
+        auth = auth.split(':');
+        auth = { usrname: auth[0], pssword: auth[1] };
+        var body = '';
+        req.on('data', function (data) {
+            body += data;
+            if (body.length > 1e6)
+                req.connection.destroy();
+        });
 
-    req.on('end', function () {
-        var post = JSON.parse(body);
-        if (auth && checkCreds(auth, post.name)) {
-            switch (req.method) {
-                case 'POST':
-                    db.set(post.name, post.data);
-                    break;
-                case 'PUT':
-                    db.push(post.name, post.data);
-                    break;
-                case 'DELETE':
-                    db.delete(post.name);
-                    break;
+        req.on('end', function () {
+            var post = JSON.parse(body);
+            if (auth && checkCreds(auth, post.name)) {
+                switch (req.method) {
+                    case 'POST':
+                        if (post.data.newBlog) {
+                            db.push('entries', post.name);
+                            delete post.data.newBlog;
+                        }
+                        post.data.date = new Date();
+                        db.set(post.name, post.data);
+                        break;
+                    case 'PUT':
+                        db.push(post.name, post.data);
+                        break;
+                    case 'DELETE':
+                        db.delete(post.name);
+                        break;
+                }
+                res.writeHead(200);
+                res.end('Success!');
+            } else {
+                res.writeHead(403, { "Content-Type": "text/plain" });
+                res.end('Invalid');
             }
-            res.writeHead(200);
-            res.end('Success!');
-        } else {
-            res.writeHead(403, { "Content-Type": "text/plain" });
-            res.end('Invalid');
-        }
-    });
+        });
+    } catch (e) {
+        res.writeHead(500);
+        res.end;
+        console.error(`======================================================
+Error:
+${e}`);
+    }
 }
 
 var checkCreds = function (creds, item) {

@@ -21,151 +21,15 @@ const server = new http.createServer(requestHandler);
 function requestHandler(req, res) {
     switch (req.method) {
         case 'GET':
-            if (free.deliver1 || free.deliver2) {
-                if (free.deliver1) {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8081,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                } else {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8082,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                }
-            } else {
-                if (delqueue.length < 15) {
-                    delqueue.push({ req, res });
-                    execdelQueue();
-                } else {
-                    res.writeHead(429);
-                    res.end()
-                }
-            }
-            break;
-        case 'POST':
-            if (free.db1 || free.db2) {
-                if (free.db1) {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8083,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                } else {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8084,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                }
-            } else {
-                if (dbqueue.length < 15) {
-                    dbqueue.push({ req, res });
-                    execdbQueue();
-                } else {
-                    res.writeHead(429);
-                    res.end()
-                }
-            }
-            break;
-        case 'DELETE':
-            if (free.db1 || free.db2) {
-                if (free.db1) {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8083,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                } else {
-                    var connector = http.request({
-                        host: 'localhost',
-                        port: 8083,
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                }
-            } else {
-                if (dbqueue.length < 15) {
-                    dbqueue.push({ req, res });
-                    execdbQueue();
-                } else {
-                    res.writeHead(429);
-                    res.end()
-                }
-            }
-            break;
-        case 'PUT':
-            if (free.db1 || free.db2) {
-                if (free.db1) {
-                    var connector = http.request({
-                        host: 'localhost:8083',
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                } else {
-                    var connector = http.request({
-                        host: 'localhost:8084',
-                        path: req.url,
-                        method: req.method,
-                        headers: req.headers
-                    }, (resp) => {
-                        resp.pipe(res);
-                    });
-                    req.pipe(connector);
-                }
-            } else {
-                if (dbqueue.length < 15) {
-                    dbqueue.push({ req, res });
-                    execdbQueue();
-                } else {
-                    res.writeHead(429);
-                    res.end()
-                }
-            }
+            get(req, res);
             break;
         default:
-            res.writeHead(400);
-            res.end();
+            def(req, res);
             break;
     }
 }
 
-Object.keys(children).forEach((child, index) => {
+Object.keys(children).forEach((child) => {
     children[child].on("message", (message) => {
         if (message == "done") {
             free[child] = true;
@@ -201,4 +65,92 @@ function execdbQueue() {
             await new Promise(r => setTimeout(r, 100));
         }
     });
+}
+
+function get(req, res) {
+    try {
+        if (free.deliver1 || free.deliver2) {
+            if (free.deliver1) {
+                var connector = http.request({
+                    host: 'localhost',
+                    port: 8081,
+                    path: req.url,
+                    method: req.method,
+                    headers: req.headers
+                }, (resp) => {
+                    resp.pipe(res);
+                });
+                req.pipe(connector);
+            } else {
+                var connector = http.request({
+                    host: 'localhost',
+                    port: 8082,
+                    path: req.url,
+                    method: req.method,
+                    headers: req.headers
+                }, (resp) => {
+                    resp.pipe(res);
+                });
+                req.pipe(connector);
+            }
+        } else {
+            if (delqueue.length < 15) {
+                delqueue.push({ req, res });
+                execdelQueue();
+            } else {
+                res.writeHead(429);
+                res.end()
+            }
+        }
+    } catch (e) {
+        res.writeHead(500);
+        res.end;
+        console.error(`======================================================
+Error:
+${e}`);
+    }
+}
+
+function def(req, res) {
+    try {
+        if (free.db1 || free.db2) {
+            if (free.db1) {
+                var connector = http.request({
+                    host: 'localhost',
+                    port: 8083,
+                    path: req.url,
+                    method: req.method,
+                    headers: req.headers
+                }, (resp) => {
+                    resp.pipe(res);
+                });
+                req.pipe(connector);
+            } else {
+                var connector = http.request({
+                    host: 'localhost',
+                    port: 8084,
+                    path: req.url,
+                    method: req.method,
+                    headers: req.headers
+                }, (resp) => {
+                    resp.pipe(res);
+                });
+                req.pipe(connector);
+            }
+        } else {
+            if (dbqueue.length < 15) {
+                dbqueue.push({ req, res });
+                execdbQueue();
+            } else {
+                res.writeHead(429);
+                res.end()
+            }
+        }
+    } catch (e) {
+        res.writeHead(500);
+        res.end;
+        console.error(`======================================================
+Error:
+${e}`);
+    }
 }
