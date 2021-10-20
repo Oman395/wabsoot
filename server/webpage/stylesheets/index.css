@@ -1,0 +1,147 @@
+html {
+    margin: 0;
+    padding: 0;
+    background: rgb(41, 41, 41);
+    height: webkit-view-available;
+    z-index: 10;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes drop {
+    from {
+        margin-top: calc(-2 * min(12vh, 15vw));
+    }
+    to {
+        margin-top: min(13vh, 16.25vw);
+    }
+}
+
+.header {
+    width: 100vw;
+    height: min(12vh, 15vw);
+    /*min(xvh, 1.25xvw) means width needs to be 1.25x smaller then height to affect scalling*/
+    background-color: rgb(66, 66, 66);
+    position: absolute;
+    top: 0;
+    z-index: 50;
+}
+
+.header img {
+    height: min(10vh, 12.5vw);
+    padding-right: 0;
+    z-index: 40;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu:hover .menuDrop {
+    z-index: 20;
+    margin-top: min(13vh, 16.25vw);
+    visibility: visible;
+}
+
+.menu:hover #menu_img {
+    filter: brightness(0.8);
+}
+
+.menu {
+    width: min(25vh, 31.25vw);
+    position: absolute;
+    left: min(19vh, 23.75vw);
+}
+
+.menu:hover {
+    height: min(40vh, 50vw);
+}
+
+.header img:hover {
+    filter: brightness(0.8);
+}
+
+.header img:active {
+    filter: brightness(0.7);
+}
+
+.menu img {
+    padding: min(1vh, 1.25vw);
+}
+
+#home {
+    width: min(21vh, 26.25vw);
+    display: inline;
+    position: absolute;
+    top: min(1vh, 1.25vw);
+    left: 0;
+}
+
+.menu .menuDrop {
+    border: min(2vh, 2.5vw) solid rgb(66, 66, 66);
+    border-radius: min(1vh, 1.25vw);
+    background-color: rgb(66, 66, 66);
+    padding: 0;
+    visibility: hidden;
+    position: absolute;
+    margin-top: calc(-1.9 * min(12vh, 15vw));
+    transition: visibility 0.5s, margin-top 0.5s ease-in-out 100ms;
+    width: min(21vh, 26.25vw);
+    left: 0;
+    z-index: 70;
+}
+
+.menu #menu_img {
+    position: absolute;
+    left: min(2.2vh, 2.55vw);
+    top: min(1vh, 1.25vw);
+    padding: 0;
+    z-index: 20;
+}
+
+.menu img {
+    width: min(21vh, 26.25vw);
+}
+
+.menu .menuDrop img {
+    height: min(5vh, 6.25vw);
+    padding: 0;
+    padding-bottom: 0;
+    position: relative;
+    z-index: 20;
+}
+
+.socials {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline;
+    padding: min(1vh, 1.25vw);
+}
+
+.socials img {
+    width: min(8vh, 10vw);
+    position: absolute;
+    right: 0;
+    display: inline;
+    padding: min(1vh, 1.25vw);
+    height: min(8vh, 10vw);
+}
+
+.socials #github {
+    right: min(9vh, 11.25vw);
+}
+
+#twitter-widget-0 {
+    margin: min(1vh, 1.25vw) !important;
+}
+
+.blog {
+    margin: 0;
+    border: none;
+    width: calc(100vw - min(32vh, 40vw));
+    height: calc(100vh - min(12vh, 15vw));
+}

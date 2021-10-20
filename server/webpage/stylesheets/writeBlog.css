@@ -1,0 +1,87 @@
+.heading {
+    font-family: monospace, FreeMono;
+    font-size: min(6vh, 7.5vw);
+    color: white;
+    text-align: center;
+}
+
+.subheading {
+    font-family: monospace, FreeMono;
+    font-size: min(3vh, 3.75vw);
+    color: white;
+    text-align: center;
+}
+
+.form {
+    text-align: center;
+    padding: min(1vh, 1.25vw);
+    font-family: monospace, FreeMono;
+    font-size: min(0.5vh, 0.625vw);
+}
+
+.form input {
+    margin: min(1vh, 1.25vw);
+    background-color: rgb(66, 66, 66);
+    font-family: monospace, FreeMono;
+    font-size: min(2vh, 2.5vw);
+    color: white;
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+.form textarea {
+    margin: min(1vh, 1.25vw);
+    background-color: rgb(66, 66, 66);
+    font-family: monospace, FreeMono;
+    font-size: min(2vh, 2.5vw);
+    color: white;
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+.form #title {
+    width: min(40vh, 50vw);
+}
+
+.form #subtitle {
+    font-size: min(1.5vh, 1.875vwvw);
+    width: min(40vh, 50vw);
+}
+
+.form #body {
+    font-size: min(1.5vh, 1.875vwvw);
+    width: min(40vh, 50vw);
+    height: min(20vh, 25vw);
+}
+
+.form #usrname {
+    font-size: min(1.5vh, 1.875vwvw);
+    width: min(40vh, 50vw);
+}
+
+.form #pssword {
+    font-size: min(1.5vh, 1.875vwvw);
+    width: min(40vh, 50vw);
+}
+
+.form .submit {
+    margin-top: min(5vh, 6.25vw);
+    width: min(20vh, 25vw);
+    height: min(5vh, 6.25vw);
+    background-color: rgb(66, 66, 66);
+    color: white;
+    font-family: monospace, FreeMono;
+    font-size: min(2vh, 2.5vw);
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+.form .submit:hover {
+    background-color: rgb(77, 77, 77);
+    border: min(0.5vh, 0.625vw) solid rgb(77, 77, 77);
+}
+
+.form .submit:active {
+    background-color: rgb(55, 55, 55);
+    border: min(0.5vh, 0.625vw) solid rgb(55, 55, 55);
+}
