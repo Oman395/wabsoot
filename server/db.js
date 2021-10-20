@@ -63,9 +63,15 @@ var checkCreds = function (creds, item) {
         } else if (user.access.includes(item)) {
             return true;
         } else {
+            console.log(`======================================================
+Attempt to authenticate with invalid credentials made!
+Username: ${creds.usrname}, Password: ${creds.pssword}.`);
             return false;
         }
     } else {
+        console.log(`======================================================
+Attempt to authenticate with invalid credentials made!
+Username: ${creds.usrname}, Password: ${creds.pssword}.`);
         return false;
     }
 }

@@ -25,7 +25,6 @@ function handleRequest(req, res) {
                     response = fs.readFileSync(`./server/webpage/index.html`);
                     err = 200;
                 } else {
-                    console.log(extras.hasOwnProperty(req.url.split('?')[0]));
                     if (fs.existsSync(`./server/webpage/404.html`)) {
                         response = fs.readFileSync(`./server/webpage/404.html`);
                         err = 404;
@@ -36,7 +35,6 @@ function handleRequest(req, res) {
                 }
             }
         } else {
-            console.log(req.url);
             var args = req.url.split('?')[1].split("=");
             var dta = { [args[0]]: args[1] };
             var pages = db.get('entries');
