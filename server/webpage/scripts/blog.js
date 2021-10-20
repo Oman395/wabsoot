@@ -9,7 +9,6 @@ var cache = [];
 xhttp.addEventListener('loadend', () => {
     document.getElementById('content').innerHTML = ``;
     var data = JSON.parse(xhttp.response);
-    console.log(data);
     var active = document.getElementById('content');
     count = data.count;
     if (index - 5 >= 0) {
@@ -94,7 +93,6 @@ xhttp.addEventListener('loadend', () => {
     if(cache.length > 5) {
         cache.splice(0, 1);
     }
-    console.log(cache);
 })
 
 function updateContent() {
@@ -106,7 +104,6 @@ function updateContent() {
         xhttp.open('GET', `/getblogs?page=${index / 5}`);
         xhttp.send(JSON.stringify(args));
     } else {
-        console.log(index / 5);
         document.getElementById('content').innerHTML = cache[index / 5];
         var buttons = document.getElementsByTagName('button');
         for (let i = 0; i < buttons.length; i++) {

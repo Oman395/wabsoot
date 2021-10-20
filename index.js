@@ -1,5 +1,12 @@
+import https from "https";
 import http from "http";
 import { fork } from "child_process";
+import fs from "fs";
+
+const options = {
+    key: fs.readFileSync('./keys/private.key'),
+    cert: fs.readFileSync('./keys/certificate.crt'),
+}
 
 var delqueue = [];
 var dbqueue = [];
@@ -16,9 +23,10 @@ var free = {
     db2: false,
 }
 
-const server = new http.createServer(requestHandler);
+const server = new https.createServer(options, requestHandler);
 
 function requestHandler(req, res) {
+    console.log('Request!');
     switch (req.method) {
         case 'GET':
             get(req, res);
@@ -39,7 +47,7 @@ Object.keys(children).forEach((child) => {
     });
 });
 
-server.listen(80, 'localhost');
+server.listen(443, 'localhost');
 
 function execdelQueue() {
     (async () => {

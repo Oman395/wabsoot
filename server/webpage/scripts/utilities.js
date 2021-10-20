@@ -1,7 +1,6 @@
 function sendJson(data, url) { // JSON sender, can send pretty much any data
     var xhttp = new XMLHttpRequest();
     xhttp.open('POST', url);
-    console.log(`usrname:${data.usrname};pssword:${data.pssword}`);
     xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${data.usrname}:${data.pssword}`)}`);
     xhttp.withCredentials = true;
     delete data.usrname;
