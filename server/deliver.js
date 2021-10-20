@@ -2,13 +2,11 @@ import fs from "fs";
 import http from "http";
 import mime from "mime-types";
 
-console.log(process.argv);
 var port = 8080 + parseInt(process.argv[2]);
 
 const server = new http.createServer(handleRequest);
 
 function handleRequest(req, res) {
-    console.log(req.url);
     var response;
     var err;
     if (fs.existsSync(req.url != "/" && `./server/webpage${req.url}`) || fs.existsSync(`./server/webpage${req.url}.html`)) {

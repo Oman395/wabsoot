@@ -7,7 +7,6 @@
             const xhttp = new XMLHttpRequest();
             xhttp.open('POST', '/');
             xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${creds.usrname}:${creds.pssword}`)}`);
-            console.log(xhttp.UNSENT);
             xhttp.withCredentials = true;
             xhttp.setRequestHeader('Content-Type', 'application/json');
             xhttp.send(JSON.stringify(data));
@@ -17,17 +16,25 @@
         }
         function put(data, creds) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open('PUT', '/', creds.usrname, creds.pssword);
+            xhttp.open('PUT', '/');
+            xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${creds.usrname}:${creds.pssword}`)}`);
             xhttp.withCredentials = true;
             xhttp.setRequestHeader('Content-Type', 'application/json');
             xhttp.send(JSON.stringify(data));
+            xhttp.onload = function () {
+                document.getElementById('out').innerHTML = xhttp.responseText;
+            }
         }
         function del(data, creds) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open('DELETE', '/', creds.usrname, creds.pssword);
+            xhttp.open('DELETE', '/');
+            xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${creds.usrname}:${creds.pssword}`)}`);
             xhttp.withCredentials = true;
             xhttp.setRequestHeader('Content-Type', 'application/json');
             xhttp.send(JSON.stringify(data));
+            xhttp.onload = function () {
+                document.getElementById('out').innerHTML = xhttp.responseText;
+            }
         }
     </script>
 </head>

@@ -19,7 +19,6 @@ var free = {
 const server = new http.createServer(requestHandler);
 
 function requestHandler(req, res) {
-    console.log(req.method);
     switch (req.method) {
         case 'GET':
             if (free.deliver1 || free.deliver2) {
