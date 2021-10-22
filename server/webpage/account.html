@@ -5,6 +5,22 @@
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="/stylesheets/central.css">
     <link rel="stylesheet" href="/stylesheets/text.css">
+    <script src="/scripts/utilities.js"></script>
+    <script>
+        function login() {
+            if (!getCookie('usrname') || !getCookie('pssword')) {
+                location.href = '/login'
+            } else if (getCookie('loggedin') == "false" && getCookie('usrname') && getCookie('pssword') && getCookie(
+                    'save') == 'true') {
+                setCookie('loggedin', true, 1);
+                document.getElementsByClassName('body')[0].innerHTML =
+                    `<button id='logout' onclick="setCookie('loggedin', false, 1); this.remove(); logout();">Log out</button>`;
+                document.getElementById('prim').innerHTML = `Hello, ${getCookie('usrname')}!`;
+            } else {
+                location.href = '/login'
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -51,21 +67,37 @@
             </a>
         </div>
     </div>
-    <div class="content">
+    <div class="content"
+        style="width: min(60vh, 75vw); position:absolute;left:calc(50vw - min(30vh, 37.5vw)); top:min(20vh, 25vw);">
         <div class="comingSoon">
             <div class="heading">
-                <p class="headingText">
-                    Coming soon!
+                <p class="headingText" id="prim">
                 </p>
             </div>
             <div class="body" style="margin:0;">
-                <p class="bodyText">
-                    This page will be filled in once I have services that will require support. Until then, Here's my cat:
-                    <br>
-                    <br>
-                    <br>
-                    <img src="/images/judy.png" style="text-align:center; padding:0; margin:0; border:none;">
-                </p>
+                <button id="login" onclick="login()">
+                    Log in!
+                </button>
+                <button id=" signup" onclick="location.href = '/signup'">
+                    Sign up!
+                </button>
+                <script>
+                    if (getCookie('usrname') && getCookie('pssword') && getCookie('loggedin') == "true") {
+                        document.getElementsByClassName('body')[0].innerHTML =
+                            `<button id='logout' onclick="logout();this.remove();">Log out</button>`;
+                        document.getElementById('prim').innerHTML = `Hello, ${getCookie('usrname')}!`;
+                    } else {
+                        document.getElementById('prim').innerHTML = 'Create an account, or log in!';
+                    }
+
+                    function logout() {
+                        setCookie('loggedin', false, 1);
+                        if (getCookie('save') != 'true') {
+                            setCookie('usrname'), setCookie('pssword')
+                        }
+                        location.reload();
+                    }
+                </script>
             </div>
         </div>
 </body>

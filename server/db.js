@@ -25,12 +25,20 @@ function handleRequest(req, res) {
             if (auth && checkCreds(auth, post.name)) {
                 switch (req.method) {
                     case 'POST':
-                        if (post.data.newBlog) {
-                            db.push('entries', post.name);
-                            delete post.data.newBlog;
+                        if (req.url == '/account?create' && !db.get(post.name)) {
+                            db.set(post.name, post.data);
+                        } else if (req.url == '/account?create') {
+                            res.writeHead(401);
+                            res.end();
+                            return;
+                        } else {
+                            if (post.data.newBlog) {
+                                db.push('entries', post.name);
+                                post.data.date = new Date();
+                                delete post.data.newBlog;
+                            }
+                            db.set(post.name, post.data);
                         }
-                        post.data.date = new Date();
-                        db.set(post.name, post.data);
                         break;
                     case 'PUT':
                         db.push(post.name, post.data);

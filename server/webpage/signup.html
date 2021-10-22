@@ -5,6 +5,28 @@
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="/stylesheets/central.css">
     <link rel="stylesheet" href="/stylesheets/text.css">
+    <script src="/scripts/utilities.js"></script>
+    <script src="/scripts/account.js"></script>
+    <script>
+        function send(data) {
+            if (data.usrname && data.pssword) {
+                const xhttp = new XMLHttpRequest();
+                xhttp.open('GET', '/account?create');
+                xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${data.usrname}:${data.pssword}`)}`);
+                xhttp.send();
+                xhttp.onload = function () {
+                    document.getElementById('main').innerHTML = xhttp.response;
+                    if (xhttp.response == 'success') {
+                        setCookie('usrname', data.usrname, 1);
+                        setCookie('pssword', data.pssword, 1);
+                        setCookie('loggedin', true, 1);
+                        setCookie('save', data.save);
+                        location.href = '/account';
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -54,20 +76,20 @@
     <div class="content">
         <div class="comingSoon">
             <div class="heading">
-                <p class="headingText">
-                    Coming soon!
+                <p class="headingText" id="main">
+                    Sign up!
                 </p>
             </div>
             <div class="body" style="margin:0;">
-                <p class="bodyText">
-                    This page will be filled in once I have services that will require support. Until then, Here's my
-                    cat:
-                    <br>
-                    <br>
-                    <br>
-                    <img src="/images/judy.png" style="text-align:center; padding:0; margin:0; border:none; width:min(70vh, 87.5vw); height:
-                        min(50vh, 62.5vw);">
-                </p>
+                <input type="text" id="usrname" placeholder="Username">
+                <input type="text" id="pssword" placeholder="Password">
+                <input type="checkbox" class="check" id="save" style="color: rgb(66,66,66);">Save?
+                <button onclick="
+                send({
+                    usrname: document.getElementById('usrname').value,
+                    pssword: document.getElementById('pssword').value,
+                    save: document.getElementById('save').checked,
+                })" id="send">Submit</button>
             </div>
         </div>
 </body>

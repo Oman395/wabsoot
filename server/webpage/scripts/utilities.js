@@ -18,7 +18,32 @@ function handleForm(data, url) { // Form logic, makes sure all data types arent 
     Object.keys(data).forEach((value) => {
         if (data[value] == undefined) valid = fale;
     });
+    data.usrname = getCookie('usrname');
+    data.pssword = getCookie('pssword');
     if (valid) sendJson(data, url); // Send the form data
+}
+
+function setCookie(cname, cvalue, exdays) { // w3schools is amazing
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return false;
 }
 
 /*

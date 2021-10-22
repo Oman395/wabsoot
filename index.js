@@ -26,7 +26,6 @@ var free = {
 const server = new https.createServer(options, requestHandler);
 
 function requestHandler(req, res) {
-    console.log('Request!');
     switch (req.method) {
         case 'GET':
             get(req, res);
@@ -47,7 +46,9 @@ Object.keys(children).forEach((child) => {
     });
 });
 
-server.listen(443, 'localhost');
+server.listen(443, '192.168.1.178', () => {
+    console.log('Listening!');
+});
 
 function execdelQueue() {
     (async () => {

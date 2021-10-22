@@ -3,10 +3,8 @@
     display: inline-block;
     background-color: rgb(41, 41, 41);
     width: 100vw;
-    height: calc(100vh - min(12vh, 15vw));
     left: 0;
     top: min(12vh, 15vw);
 }
-
 
 /* Full page body data, no sidebar */

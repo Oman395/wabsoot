@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/central.css">
+    <link rel="stylesheet" href="/stylesheets/text.css">
+    <script src="/scripts/utilities.js"></script>
+    <script>
+        function send(data) {
+            if (data.usrname && data.pssword) {
+                const xhttp = new XMLHttpRequest();
+                xhttp.open('GET', '/account?login');
+                xhttp.setRequestHeader('Authorization', `Basic ${btoa(`${data.usrname}:${data.pssword}`)}`);
+                xhttp.send();
+                xhttp.onload = function () {
+                    document.getElementById('main').innerHTML = xhttp.response;
+                    if (xhttp.response == 'success') {
+                        setCookie('usrname', data.usrname, 1);
+                        setCookie('pssword', data.pssword, 1);
+                        setCookie('save', data.save);
+                        setCookie('loggedin', true, 1);
+                        location.href = '/account';
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="home">
+            <a href="/">
+                <img src="/images/dubq_logo.png" id="home">
+            </a>
+        </div>
+        <div class="menu">
+            <img src="images/dubq_menu.png" id="menu_img">
+            <div class="menuDrop">
+                <a href="/about" id="about">
+                    <img src="images/dubq_about.png">
+                </a>
+                <br>
+                <a href="/support" id="support">
+                    <img src="images/dubq_support.png">
+                </a>
+                <br>
+                <a href="/contact" id="contact">
+                    <img src="images/dubq_contact.png">
+                </a>
+                <br>
+                <a href="/account" id="account">
+                    <img src="images/dubq_account.png">
+                </a>
+            </div>
+        </div>
+        <div class="socials">
+            <a href="https://twitter.com/OmanTheHuman1">
+                <img src="images/twitter.png">
+            </a>
+            <a href="https://github.com/Oman395" id="github">
+                <img src="images/github.png" id="github">
+            </a>
+        </div>
+        <div class="socials">
+            <a href="https://twitter.com/OmanTheHuman1">
+                <img src="images/twitter.png">
+            </a>
+            <a href="https://github.com/Oman395" id="github">
+                <img src="images/github.png" id="github">
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="comingSoon">
+            <div class="heading">
+                <p class="headingText" id="main">
+                    Login!
+                </p>
+            </div>
+            <div class="body" style="margin:0;">
+                <input type="text" id="usrname" placeholder="Username">
+                <input type="text" id="pssword" placeholder="Password">
+                <button onclick="saveButt()" id="save" style="background-color: rgb(66,66,66); border:0;">Save?</button>
+                <button onclick="send({
+                    usrname: document.getElementById('usrname').value,
+                    pssword: document.getElementById('pssword').value,
+                    save: document.getElementById('save').value,
+                })" id="send">Submit</button>
+            </div>
+            <script>
+                function saveButt() {
+                    var save = document.getElementById('save');
+                    console.log(save.style.backgroundColor);
+                    if (save.style.backgroundColor == 'rgb(66, 66, 66)') {
+                        save.style.backgroundColor = 'rgb(44, 44, 44)';
+                        save.value = true;
+                        save.innerHTML = 'Saving!';
+                    } else {
+                        save.style.backgroundColor = 'rgb(66, 66, 66)';
+                        save.value = false;
+                        save.innerHTML = 'Save?';
+                    }
+                }
+            </script>
+        </div>
+</body>
+
+</html>

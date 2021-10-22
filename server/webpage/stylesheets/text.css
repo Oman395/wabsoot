@@ -13,6 +13,11 @@
     border-radius: min(0.5vh, 0.625vw);
 }
 
+.content .body {
+    margin: 0;
+    border: 0;
+}
+
 .content .heading {
     background-color: rgb(77, 77, 77);
     border: min(0.5vh, 0.625vw) solid rgb(77, 77, 77);
@@ -29,4 +34,46 @@
 
 .content .bodyText img {
     border-radius: min(0.5vh, 0.625vw);
+}
+
+.content input {
+    margin: min(1vh, 1.25vw);
+    background-color: rgb(66, 66, 66);
+    font-family: monospace, FreeMono;
+    font-size: min(2vh, 2.5vw);
+    color: white;
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+}
+
+.content button {
+    width: min(20vh, 25vw);
+    height: min(5vh, 6.25vw);
+    background-color: rgb(66, 66, 66);
+    color: white;
+    font-family: monospace, FreeMono;
+    font-size: min(2vh, 2.5vw);
+    border: min(0.5vh, 0.625vw) solid rgb(66, 66, 66);
+    border-radius: min(0.5vh, 0.625vw);
+    margin: min(1vh, 1.25vw);
+    padding: 0;
+}
+
+.content button:hover {
+    background-color: rgb(77, 77, 77);
+    border: min(0.5vh, 0.625vw) solid rgb(77, 77, 77);
+}
+
+.content button:active {
+    background-color: rgb(55, 55, 55);
+    border: min(0.5vh, 0.625vw) solid rgb(55, 55, 55);
+}
+
+.content #send {
+    height: fit-content;
+}
+
+.content #save {
+    height: fit-content;
+    padding: min(0.5vh, 0.625vw);
 }

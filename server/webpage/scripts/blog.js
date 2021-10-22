@@ -9,6 +9,7 @@ var cache = [];
 xhttp.addEventListener('loadend', () => {
     document.getElementById('content').innerHTML = ``;
     var data = JSON.parse(xhttp.response);
+    console.log(data);
     var active = document.getElementById('content');
     count = data.count;
     if (index - 5 >= 0) {
@@ -90,9 +91,6 @@ xhttp.addEventListener('loadend', () => {
     print.id = 'index';
     active.appendChild(print);
     cache[index / 5] = active.innerHTML;
-    if(cache.length > 5) {
-        cache.splice(0, 1);
-    }
 })
 
 function updateContent() {
